@@ -24,6 +24,6 @@
 	"repositories": [        
         {
             "type": "vcs",
-            "url": "https://github.com/gsbabaev/TestRedSoft"
+            "url": "https://github.com/gsbabaev/TestRedSoft.git"
         }]
 }
