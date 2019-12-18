@@ -20,5 +20,10 @@
 		"psr-4": {
 			"Src\\" : "Src"
 		}
-	}
+	},
+	"repositories": [        
+        {
+            "type": "vcs",
+            "url": "https://github.com/gsbabaev/TestRedSoft"
+        }]
 }
