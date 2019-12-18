@@ -13,7 +13,7 @@
 	],
 	"require": {
 		"php": ">=7.1.0",
-		"Rundiz/NestedSet": "@stable",
+		"rundiz/nested-set": "@stable",
 		"colshrapnel/safemysql": "@stable"
 	},
 	"autoload": {
