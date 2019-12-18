@@ -12,12 +12,13 @@
 		}
 	],
 	"require": {
-		"php": ">=7.1.0"
+		"php": ">=7.1.0",
+		"Rundiz/NestedSet": "@stable",
+		"colshrapnel/safemysql": "@stable"
 	},
 	"autoload": {
 		"psr-4": {
-			"Rundiz\\NestedSet\\" : "Rundiz/NestedSet",
-      "GsBabaev\\TestRedSoft\\" : "gsbabaev/TestRedSoft"
+			"Src\\" : "Src"
 		}
 	}
 }
