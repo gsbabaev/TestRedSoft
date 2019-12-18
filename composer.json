@@ -1,0 +1,23 @@
+{
+	"name": "gsbabaev/TestRedSoft",
+	"type": "library",
+	"description": "class library for json request product as category tree.",
+	"keywords": ["json","product", "categories"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Alexander Babaev",
+			"email": "gs.babaev@yandex.ru",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=7.1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Rundiz\\NestedSet\\" : "Rundiz/NestedSet",
+      "GsBabaev\\TestRedSoft\\" : "gsbabaev/TestRedSoft"
+		}
+	}
+}
