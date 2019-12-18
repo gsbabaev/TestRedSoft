@@ -1,0 +1,29 @@
+{
+	"name": "gsbabaev/test-red-soft",
+	"type": "library",
+	"description": "class library for json request product as category tree.",
+	"keywords": ["json","product", "categories"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Alexander Babaev",
+			"email": "gs.babaev@yandex.ru",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=7.1.0",
+		"rundiz/nested-set": "@stable",
+		"colshrapnel/safemysql": "@stable"
+	},
+	"autoload": {
+		"psr-4": {
+			"Src\\" : "Src"
+		}
+	},
+	"repositories": [        
+        {
+            "type": "vcs",
+            "url": "https://github.com/gsbabaev/test-red-soft.git"
+        }]
+}
