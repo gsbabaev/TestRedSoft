@@ -1,5 +1,5 @@
 {
-	"name": "gsbabaev/TestRedSoft",
+	"name": "gsbabaev/test-red-soft",
 	"type": "library",
 	"description": "class library for json request product as category tree.",
 	"keywords": ["json","product", "categories"],
@@ -24,6 +24,6 @@
 	"repositories": [        
         {
             "type": "vcs",
-            "url": "https://github.com/gsbabaev/TestRedSoft.git"
+            "url": "https://github.com/gsbabaev/test-red-soft.git"
         }]
 }
