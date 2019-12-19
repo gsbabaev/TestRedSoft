@@ -27,21 +27,16 @@
             "url": "https://github.com/gsbabaev/test-red-soft.git"
         },
 	{
-            "type": "vcs",
-            "url": "https://github.com/kvf77/DbTree.git"
-        },
-	"DbTree": {
-            "type": "package",
-            "package": {
-                "name": "kvf77/DbTree",
-                "version": "@stable",
-                "source": {
-                    "url": "https://github.com/kvf77/DbTree",
-                    "type": "git"
-                },
-                "autoload": {
-                    "classmap": ["lib"]
+            "type":"package",
+            "package":{
+                "name":"kvf77/dbtree",
+                "version":"1.2.3",
+                "source":{
+                    "type":"git",
+                    "url":"http://github.com/kvf77/DbTree",
+                    "reference":"master"
                 }
             }
         }]
+
 }
