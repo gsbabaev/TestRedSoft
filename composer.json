@@ -30,7 +30,7 @@
             "type":"package",
             "package":{
                 "name":"kvf77/dbtree",
-                "version":"1.2.3",
+                "version":"@stable",
                 "source":{
                     "type":"git",
                     "url":"http://github.com/kvf77/DbTree",
