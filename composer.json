@@ -25,5 +25,9 @@
         {
             "type": "vcs",
             "url": "https://github.com/gsbabaev/test-red-soft.git"
+        },
+	{
+            "type": "vcs",
+            "url": "https://github.com/kvf77/DbTree.git"
         }]
 }
