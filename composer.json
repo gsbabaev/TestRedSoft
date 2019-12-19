@@ -29,5 +29,19 @@
 	{
             "type": "vcs",
             "url": "https://github.com/kvf77/DbTree.git"
+        },
+	"DbTree": {
+            "type": "package",
+            "package": {
+                "name": "kvf77/DbTree",
+                "version": "@stable",
+                "source": {
+                    "url": "https://github.com/kvf77/DbTree",
+                    "type": "git"
+                },
+                "autoload": {
+                    "classmap": ["lib"]
+                }
+            }
         }]
 }
