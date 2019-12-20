@@ -4,8 +4,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/gsbabaev/restfulphptpl/v/stable)](https://packagist.org/packages/gsbabaev/restfulphptpl)
 [![Total Downloads](https://poser.pugx.org/gsbabaev/restfulphptpl/downloads)](https://packagist.org/packages/gsbabaev/restfulphptpl)
-[![License](https://poser.pugx.org/gsbabaev/test-red-soft/license)](https://packagist.org/packages/gsbabaev/test-red-soft)
-
+[![License](https://poser.pugx.org/gsbabaev/restfulphptpl/license)](https://packagist.org/packages/gsbabaev/restfulphptpl)
 ### Requires
 
 ```bash
