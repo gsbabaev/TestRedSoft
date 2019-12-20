@@ -1,0 +1,28 @@
+{
+	"name": "gsbabaev/restfulphptpl",
+	"type": "library",
+	"description": "RESTful template class library for json request product as category tree.",
+	"keywords": ["json","product", "categories", "RESTful"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Alexander Babaev",
+			"email": "gs.babaev@yandex.ru",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=7.1.0",
+		"colshrapnel/safemysql": "@stable"
+	},
+	"autoload": {
+		"psr-4": {
+			"RESTfulPHPtpl\\" : "Src"
+		}
+	},
+	"repositories": [        
+        {
+            "type": "vcs",
+            "url": "https://github.com/gsbabaev/restfulphptpl.git"
+        }]
+}
