@@ -1,17 +1,18 @@
 <?php
 
-//namespace TestRedSotf;
+//namespace RESTfulPHPtpl;
 
 
 class get
 {
     protected $json;
     protected $db;
+    protected $config;
 
     public function __construct($task, $data)
     {
-        include 'config.php';
-
+        $config = [];
+        include __DIR__.'/../../config.php';
         $this->config = $config;
 
         $this->db = new SafeMySQL($this->config);
@@ -42,6 +43,7 @@ class get
         return $json;
     }
 
+
     protected function find($data){
         // Получение информации о товаре
         // GET /product/find/{substr}
@@ -62,13 +64,7 @@ class get
         return $json;
     }
 
-    protected function _addCatInProducts($json,$products){
-        foreach ($products as $k => $product) {
-            $json['data'][$k] = $product;
-            $json['data'][$k]['cat'] = $this->_getCatsId($product['id']);
-        }
-        return $json;
-    }
+
 
     protected function manuf($data){
         // Получение информации о товаре
@@ -89,21 +85,7 @@ class get
         return $json;
     }
 
-    protected function _getCatsId($id){
-        return $this->db->getCol('SELECT name FROM test_taxonomy_category 
-                        WHERE id IN (
-                            select idc from test_taxonomy_xref where idp = ?i
-                        )
-                        ',$id);
-    }
 
-    protected function _getProdId($ids){
-        return $this->db->getAll('SELECT * FROM test_taxonomy_product 
-                        WHERE id IN (
-                            select idp from test_taxonomy_xref where idc IN (?a)
-                        )
-                        ',$ids);
-    }
 
     protected function cat($data){
         // Получение информации о товаре
@@ -154,6 +136,30 @@ class get
             }
         }
         return $json;
+    }
+
+    protected function _addCatInProducts($json,$products){
+        foreach ($products as $k => $product) {
+            $json['data'][$k] = $product;
+            $json['data'][$k]['cat'] = $this->_getCatsId($product['id']);
+        }
+        return $json;
+    }
+
+    protected function _getCatsId($id){
+        return $this->db->getCol('SELECT name FROM test_taxonomy_category 
+                        WHERE id IN (
+                            select idc from test_taxonomy_xref where idp = ?i
+                        )
+                        ',$id);
+    }
+
+    protected function _getProdId($ids){
+        return $this->db->getAll('SELECT * FROM test_taxonomy_product 
+                        WHERE id IN (
+                            select idp from test_taxonomy_xref where idc IN (?a)
+                        )
+                        ',$ids);
     }
 
     public function json(){

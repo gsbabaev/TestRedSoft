@@ -1,11 +1,8 @@
 <?php
 
-namespace TestRedSotf;
+namespace RESTfulPHPtpl;
 
 use Exception;
-
-//require __DIR__."/product/get.php";
-
 
 class TRS
 {
@@ -18,7 +15,6 @@ class TRS
         $this->data = $this->getFormData($this->params['method']);
 
         $this->json = $this->route();
-        var_dump($this);
     }
 
     protected function initParams(){
