@@ -1,8 +1,8 @@
 {
-	"name": "gsbabaev/test-red-soft",
+	"name": "gsbabaev/restfulphptpl",
 	"type": "library",
-	"description": "class library for json request product as category tree.",
-	"keywords": ["json","product", "categories"],
+	"description": "RESTful template class library for json request product as category tree.",
+	"keywords": ["json","product", "categories", "RESTful"],
 	"license": "MIT",
 	"authors": [
 		{
@@ -17,12 +17,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"TestRedSotf\\" : "Src"
+			"RESTfulPHPtpl\\" : "Src"
 		}
 	},
 	"repositories": [        
         {
             "type": "vcs",
-            "url": "https://github.com/gsbabaev/test-red-soft.git"
+            "url": "https://github.com/gsbabaev/restfulphptpl.git"
         }]
 }
