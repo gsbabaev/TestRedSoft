@@ -31,12 +31,7 @@ class get
                     // Вытаскиваем товар из базы...
                     $product = $this->db->getAll('SELECT * FROM test_taxonomy_product WHERE id = ?i',$Id);
                     $json['data'][$k] = $product[0];
-                    $cat = $this->db->getCol('SELECT name FROM test_taxonomy_category 
-                        WHERE id IN (
-                            select idc from test_taxonomy_xref where idp = ?i
-                        )
-                        ',$Id);
-                    $json['data'][$k]['cat'] = $cat;
+                    $json['data'][$k]['cat'] = $this->_getCatsId($Id);
 
                 }catch (Exception $exception){
                     $json['message'] = $exception->getMessage();
@@ -59,18 +54,18 @@ class get
                 // Вытаскиваем товар из базы...
                 $products = $this->db->getAll('SELECT * FROM test_taxonomy_product WHERE name like ?s ','%'.$data[0].'%');
 
-                foreach ($products as $k => $product) {
-                    $cat = $this->db->getCol('SELECT name FROM test_taxonomy_category 
-                        WHERE id IN (
-                            select idc from test_taxonomy_xref where idp = ?i
-                        )
-                        ',$product['id']);
-                    $json['data'][$k] = $product;
-                    $json['data'][$k]['cat'] = $cat;
-                }
+                $json = $this->_addCatInProducts($json,$products);
             }catch (Exception $exception){
                 $json['message'] = $exception->getMessage();
             }
+        }
+        return $json;
+    }
+
+    protected function _addCatInProducts($json,$products){
+        foreach ($products as $k => $product) {
+            $json['data'][$k] = $product;
+            $json['data'][$k]['cat'] = $this->_getCatsId($product['id']);
         }
         return $json;
     }
@@ -84,18 +79,9 @@ class get
             $json['success'] = true;
             $json['message'] = 'ok';
             try{
-                // Вытаскиваем товар из базы...
                 $products = $this->db->getAll('SELECT * FROM test_taxonomy_product WHERE manuf IN (?a) ',$data);
 
-                foreach ($products as $k => $product) {
-                    $cat = $this->db->getCol('SELECT name FROM test_taxonomy_category 
-                        WHERE id IN (
-                            select idc from test_taxonomy_xref where idp = ?i
-                        )
-                        ',$product['id']);
-                    $json['data'][$k] = $product;
-                    $json['data'][$k]['cat'] = $cat;
-                }
+                $json = $this->_addCatInProducts($json,$products);
             }catch (Exception $exception){
                 $json['message'] = $exception->getMessage();
             }
@@ -103,26 +89,33 @@ class get
         return $json;
     }
 
+    protected function _getCatsId($id){
+        return $this->db->getCol('SELECT name FROM test_taxonomy_category 
+                        WHERE id IN (
+                            select idc from test_taxonomy_xref where idp = ?i
+                        )
+                        ',$id);
+    }
+
+    protected function _getProdId($ids){
+        return $this->db->getAll('SELECT * FROM test_taxonomy_product 
+                        WHERE id IN (
+                            select idp from test_taxonomy_xref where idc IN (?a)
+                        )
+                        ',$ids);
+    }
+
     protected function cat($data){
         // Получение информации о товаре
-        // GET /product/cat/{cat}
+        // GET /product/cat/{cat}/../{cat}
         $json = ['success' => FALSE, 'message' => 'product get Error', 'data' => null]; //Ошибка
         if ( is_array($data) AND count($data) ) {
             $json['method'] = 'GET';
             $json['success'] = true;
             $json['message'] = 'ok';
             try{
-                $cat = $data[0];
-
-                $cat_name = $this->db->getOne('SELECT name FROM test_taxonomy_category WHERE id = ?i ',$cat);
-                // Вытаскиваем товар из базы...
-                $products = $this->db->getAll('SELECT * , "'.$cat_name.'" as cat FROM test_taxonomy_product 
-                        WHERE id IN (
-                            select idp from test_taxonomy_xref where idc = ?i
-                        )
-                        ',$cat);
-                $json['data']= $products;
-
+                $products = $this->_getProdId($data);
+                $json = $this->_addCatInProducts($json,$products);
             }catch (Exception $exception){
                 $json['message'] = $exception->getMessage();
             }
@@ -140,18 +133,21 @@ class get
             $json['message'] = 'ok';
             try{
                 $cats = $data[0];
-                $db['dsn'] = 'mysql:dbname='.$this->config['db'].';host=localhost;port=3306;charset=UTF8';
-                $db['username'] = $this->config['user'];
-                $db['password'] = $this->config['pass'];
-                $db['options'] = [
-                    \PDO::ATTR_EMULATE_PREPARES => false,
-                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION // throws PDOException.
-                ];
-                $db['tablename'] = 'test_taxonomy_category';
 
-                $this->config;
+                require_once __DIR__."/../../lib/DbTreeExt.class.php";
+                $tree_params = array(
+                    'table' => 'test_taxonomy_category',
+                    'id' => 'id',
+                    'left' => 'tleft',
+                    'right' => 'tright',
+                    'level' => 'level'
+                );
+                $dbtree = new DbTreeExt($tree_params, $this->db);
 
-                $NestedSet = new \Rundiz\NestedSet\NestedSet(['pdoconfig' => $db, 'tablename' => $db['tablename']]);
+                $products = $this->_getProdId(array_keys($dbtree->Branch($cats)));
+                $json = $this->_addCatInProducts($json,$products);
+
+                //echo $dbtree->MakeUlList($dbtree->Full(),'name');
 
             }catch (Exception $exception){
                 $json['message'] = $exception->getMessage();
