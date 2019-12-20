@@ -37,11 +37,19 @@ colshrapnel/safemysql: @stable
 ```
 In folder `lib` place files `vf77/dbtree: @stable`/ It lib not present in [packages](https://packagist.org/packages)
 
+### Config.php 
+
+``` php
+$config['db'] = 'bbb';
+$config['user'] = 'xxx';
+$config['pass'] = 'yyy';
+```
+
 ### Load example dump to mysql
 ``` bash
-mysql -pxxx -uxxx bbb < dump.restfulphptpl.sql
+mysql -pyyy -uxxx bbb < dump.restfulphptpl.sql
 ```
-###Let's try it!
+### Let's try it!
 ``` php
 use RESTfulPHPtpl\TRS;
 
