@@ -4,6 +4,10 @@ namespace RESTfulPHPtpl;
 
 use Exception;
 
+if( !defined('YOUR_SESSION_ID'))
+    define('YOUR_SESSION_ID',md5($_SERVER['REMOTE_ADDR'].'admin'));
+
+
 class TRS
 {
     public $params;
@@ -17,6 +21,12 @@ class TRS
         $this->json = $this->route();
     }
 
+
+
+    public function check(){
+        return isset($this->json) AND $this->json['message'] != 'Not execute.';
+    }
+
     protected function initParams(){
         $this->params['SAPI'] = PHP_SAPI;
         $this->params['method'] = $_SERVER['REQUEST_METHOD'];
@@ -28,7 +38,7 @@ class TRS
     protected function getFormData($method) {
 
         // GET или POST: данные возвращаем как есть
-        if ($method === 'GET') return $_GET;
+        if ($method === 'GET') return $this->data;
         if ($method === 'POST') return $_POST;
 
         // PUT, PATCH или DELETE
@@ -54,7 +64,10 @@ class TRS
         // Определяем роутер, задачи над данными и url data
         $this->params['router'] = $urls[0];
         $this->params['task'] = $urls[1];
-        $this->params['urlData'] = array_slice($urls, 2);
+
+        if($this->params['method'] == 'GET'){
+            $this->data = array_slice($urls, 2);
+        }
     }
 
     public function json(){
@@ -74,13 +87,21 @@ class TRS
             }
             require_once $metod_name;
 
-            $m = new $low_m_name($this->params['task'], $this->params['urlData']);
+            $m = new $low_m_name($this->params['task'], $this->filter_vars($this->data));
             $json = $m->json();
 
         }catch (Exception  $exception){
             $json['message'] = $exception->getMessage();
         }
         return $json;
+    }
+
+    protected function filter_vars($inputs, $filter = FILTER_SANITIZE_STRING){
+        $r = [];
+        foreach ($inputs as $k => $input) {
+            $r [$k] = filter_var($input, $filter);
+        }
+        return $r;
     }
 
 }
